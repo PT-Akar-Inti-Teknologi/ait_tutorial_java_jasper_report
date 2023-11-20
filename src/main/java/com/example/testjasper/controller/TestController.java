@@ -42,8 +42,6 @@ public class TestController {
         .nama("Aditya Bintang Pratama")
         .alamat("Jalan Maju terus pantang mundur")
         .page2("test page 2")
-        .bookTitle("Tes Book JasperReport")
-        .bookSubTitle("Tes Book JasperReport Subtitle")
         .lainnya(ObjectUtils.objectToMap(lainnyaParam))
         .build();
 

@@ -1,5 +1,6 @@
 package com.example.testjasper.service;
 
+import java.util.List;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
@@ -14,10 +15,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class JasperExporter {
 
-  public void exportPDF(JasperPrint jasperPrint, String fileName) throws JRException {
+  public void exportPDF(List<JasperPrint> jasperPrint, String fileName) throws JRException {
     JRPdfExporter exporter = new JRPdfExporter();
 
-    exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+    exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrint));
     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("%s.pdf".formatted(fileName)));
 
     SimplePdfReportConfiguration reportConfig = new SimplePdfReportConfiguration();
@@ -34,12 +35,12 @@ public class JasperExporter {
     exporter.exportReport();
   }
 
-  public void exportHTML(JasperPrint jasperPrint, String fileName) throws JRException {
+  public void exportHTML(List<JasperPrint> jasperPrint, String fileName) throws JRException {
 
     HtmlExporter htmlexporter = new HtmlExporter();
 
-    htmlexporter.setExporterInput(new SimpleExporterInput(jasperPrint));
-    htmlexporter.setExporterOutput(new SimpleHtmlExporterOutput("employeeReport.html"));
+    htmlexporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrint));
+    htmlexporter.setExporterOutput(new SimpleHtmlExporterOutput(fileName+".html"));
 
     htmlexporter.exportReport();
   }
