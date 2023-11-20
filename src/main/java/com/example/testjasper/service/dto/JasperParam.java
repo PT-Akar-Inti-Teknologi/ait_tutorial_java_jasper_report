@@ -16,6 +16,17 @@ public class JasperParam {
   private String nama;
   @JsonProperty("alamat")
   private String alamat;
+  @JsonProperty("page2")
+  private String page2;
+
+
+  @JsonProperty("BookTitle")
+  private String bookTitle;
+  @JsonProperty("BookSubTitle")
+  private String bookSubTitle;
+
+
+
   @JsonProperty("lainnya")
   private Map<String, Object> lainnya;
 }

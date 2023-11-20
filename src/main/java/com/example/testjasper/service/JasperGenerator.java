@@ -12,6 +12,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -20,10 +21,13 @@ import org.springframework.util.ResourceUtils;
 public class JasperGenerator {
 
   private final JasperExporter jasperExporter;
+
+  @Value("${jasper.file.directory}")
+  private String filePath;
   public void generateReport(ReportTypeEnum type, Map<String,Object> param)
       throws FileNotFoundException, JRException {
-    File jasperFile = ResourceUtils.getFile("classpath:Blank_A4.jasper");
-    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(jasperFile);
+    File file = new File(filePath+"Wave_Book.jasper");
+    JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(file.getPath());
 
     JasperPrint
         jasperPrint = JasperFillManager.fillReport(jasperReport,param,new JREmptyDataSource());
